@@ -3,6 +3,7 @@
 ## Running the Project
 
 Open Docker Desktop
+
 From the root directory run 
 ```
 make dev
