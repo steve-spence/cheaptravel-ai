@@ -2,27 +2,10 @@ version: '3'
 
 services: 
 
-  back-end:
-    build: 
-      context: backend
-    container_name: back-end
-    working_dir: /usr/src/app
-    networks: 
-      - node-network
-    volumes: 
-      - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
-    tty: true
-    ports: 
-      - "8080:8080"
-    command: npm run start
-    depends_on:
-      - db
-
-  front-end:
+  front-back-end:
     build: 
       context: frontend
-    container_name: front-end
+    container_name: front-back-end
     working_dir: /usr/src/app
     networks: 
       - node-network
@@ -31,7 +14,7 @@ services:
       - /usr/src/app/node_modules
     tty: true
     ports: 
-      - "4200:4200"
+      - "4200:3000"
     command: npm run dev
 
   db:
@@ -48,20 +31,6 @@ services:
       - node-network
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-  nginx:
-    build: 
-      context: nginx
-    container_name: nginx
-    restart: always
-    tty: true
-    ports: 
-      - "8000:80"
-    networks: 
-      - node-network
-    depends_on:
-      - back-end
-      - front-end
   
 networks: 
   node-network:
