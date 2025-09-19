@@ -6,17 +6,17 @@ Open Docker Desktop
 
 From the root directory run 
 ```
-make dev
+make build
 ```
-This is start all the containers for the front-end, back-end, db, and nginx server
+This is start all the containers for the front-back-end and db
 
-The only two commands I set up in make are 'dev' and 'down' so you just run these to build the project and sometimes you'll
-want to close the cotainers. I'm gonna work on making it so your terminal doesn't blow up with stuff when we run it but I 
-thought I would put this here. You guys can do whatever. This is a decent starter I think.
+There are two other commands right now, 'up' and 'down'. When you run down the containers close, and if you run up it brings the 
+containers back up. You should build, then really only need to do 'make up' and 'make down' unless you are having issues with docker
+then just delete the container and 'make build'
 
 Copy .env.example in .env
 This is start all the containers for the front-end, back-end, db, and nginx server.
 
-Go to http://localhost:8080/health to make sure its working.
+Go to http://localhost:4200/api/health to make sure its working.
 
 Same with the front end, go to http://localhost:4200
