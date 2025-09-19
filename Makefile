@@ -4,9 +4,9 @@ ENV_FILE ?= .env
 
 .PHONY: dev
 dev:
-	${COMPOSE} up --build
+	${COMPOSE} up --build -d
 
 
 .PHONY: down
 down: 
-	${COMPOSE} down
+	${COMPOSE} down -v

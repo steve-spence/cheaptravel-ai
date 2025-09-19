@@ -9,7 +9,7 @@ const client = new Client({
     host: 'db',
     database: 'postgres',
     password: '1234',
-    port: 5432,
+    port: 5433,
 });
 client.connect();
 
@@ -59,4 +59,4 @@ app.post('/api/form', async (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log(`App running on port 3000.`));
+app.listen(8080, () => console.log(`App running on port 8080.`));
