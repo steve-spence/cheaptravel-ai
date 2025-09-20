@@ -1,0 +1,13 @@
+services:
+  dev-next:
+    image: node:20
+    container_name: dev-next
+    working_dir: /usr/src/app
+    volumes:
+      - ./frontend:/usr/src/app
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+    ports:
+      - "4200:3000"
+    command: npm run dev

@@ -9,3 +9,5 @@ RUN npm install --frozen-lockfile
 COPY . .
 
 EXPOSE 4200
+
+CMD ["npm", "run", "dev"]
