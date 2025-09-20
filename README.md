@@ -8,15 +8,19 @@ From the root directory run
 ```
 make build
 ```
-This is start all the containers for the front-back-end and db
+This starts the containers for the front-back-end and db
 
-There are two other commands right now, 'up' and 'down'. When you run down the containers close, and if you run up it brings the 
-containers back up. You should build, then really only need to do 'make up' and 'make down' unless you are having issues with docker
-then just delete the container and 'make build'
+There are a few other commands the only ones worth worrying about are 'make dev' and 'make down'. 
+When you run 'down' the containers close, and if you run dev it brings the containers back up. 
+You should build once, then really only need to do 'make dev' and 'make down' unless you are having 
+issues with dockerthen just delete the container and 'make build'
+
+To not have errors with Database stuff do this:
 
 Copy .env.example in .env
-This is start all the containers for the front-end, back-end, db, and nginx server.
 
-Go to http://localhost:4200/api/health to make sure its working.
 
-Same with the front end, go to http://localhost:4200
+Go to http://localhost:4200 and check the /api/health route
+
+Install the PostgreSQL extention on VSCode and add the connection string details that are in the .env
+### POSTGRESQL IS ON PORT 5433 ###
