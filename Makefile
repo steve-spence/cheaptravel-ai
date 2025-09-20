@@ -14,9 +14,8 @@ clean:
 dev:
 	${COMPOSE} ${DEV_FILES} up -d dev-next db
 
-
 up:
 	${COMPOSE} up -d front-back-end db
 
 down:
-	${COMPOSE} down
+	${COMPOSE} ${DEV_FILES} down
