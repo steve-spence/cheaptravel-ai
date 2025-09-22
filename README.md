@@ -23,3 +23,8 @@ Go to http://localhost:4200 and check the /api/health route to make sure it's wo
 
 Install the PostgreSQL extention on VSCode and add the connection string details that are in the .env
 ### POSTGRESQL IS ON PORT 5433 ###
+
+make dev is not working:
+The docker container that it is running on has your node_modules mounted into it. If you have no node modules
+it will not work, the container will crash saying 'next not found' or something of the like. To fix this, 
+cd to frontend -> npm install -> cd .. && make dev
