@@ -11,3 +11,7 @@ services:
     ports:
       - "4200:3000"
     command: npm run dev
+    networks:
+      - node-network
+    depends_on:
+      - db

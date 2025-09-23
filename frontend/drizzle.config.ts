@@ -1,7 +1,10 @@
-import { config } from 'dotenv';
 import { defineConfig } from 'drizzle-kit';
+import * as dotenv from "dotenv";
 
-config({ path: '.env' });
+// Load env in dev only (skip in prod)
+if (process.env.NODE_ENV !== "production") {
+    dotenv.config({ path: "../.env" });
+}
 
 export default defineConfig({
     schema: './src/db/schema.ts',
