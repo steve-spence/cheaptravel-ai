@@ -2,12 +2,19 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const [destinations, setDestinations] = useState<any[]>([]);
+  const router = useRouter();
 
-  // Fetch destinations from your API
+  const handleSubmit = () => {
+    if (query)
+      router.push(`/budget?location=${encodeURIComponent(query)}`);
+  }
+
+  // Fetch destinations from the api
   useEffect(() => {
     async function fetchDestinations() {
       try {
@@ -29,16 +36,28 @@ export default function Home() {
           Find your next destination
         </h1>
         <div className="w-full max-w-md flex items-center gap-2">
-          <input
-            type="text"
-            placeholder="Search destinations..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent p-2 text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-          />
-          <button className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
-            Search
-          </button>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault(); // stop page refresh
+              handleSubmit();
+            }}
+            className="flex gap-2 w-full"
+          >
+            <input
+              type="text"
+              placeholder="Search destinations..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="flex-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent p-2 text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+            />
+            <button
+              type="submit" // <-- important
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+            >
+              Search
+            </button>
+          </form>
+
         </div>
       </section>
 
@@ -49,7 +68,7 @@ export default function Home() {
           {destinations.map((dest) => (
             <div
               key={dest.id}
-              className="bg-white dark:bg-gray-900 rounded-xl shadow hover:shadow-md transition overflow-hidden"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition overflow-hidden"
             >
               {dest.image && (
                 <Image
