@@ -28,6 +28,8 @@ export default function Home() {
     fetchDestinations();
   }, []);
 
+
+
   return (
     <main className="max-w-6xl mx-auto p-6 space-y-10">
       {/* Search Section */}
@@ -64,33 +66,40 @@ export default function Home() {
       {/* Popular Destinations */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Popular Destinations</h2>
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {destinations.map((dest) => (
-            <div
-              key={dest.id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition overflow-hidden"
-            >
-              {dest.image && (
-                <Image
-                  src={dest.image}
-                  alt={dest.name}
-                  width={400}
-                  height={250}
-                  className="w-full h-48 object-cover"
-                />
-              )}
-              <div className="p-4 space-y-2">
-                <h3 className="text-lg font-bold">{dest.name}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {dest.description}
-                </p>
-                <p className="text-blue-600 text-sm font-medium">
-                  {dest.country}
-                </p>
+
+        {destinations.length === 0 ? (
+          <div className="text-gray-600 dark:text-gray-400 italic">
+            No destinations available right now. Try searching instead.
+          </div>
+        ) : (
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {destinations.map((dest) => (
+              <div
+                key={dest.id}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition overflow-hidden"
+              >
+                {dest.image && (
+                  <Image
+                    src={dest.image}
+                    alt={dest.name}
+                    width={400}
+                    height={250}
+                    className="w-full h-48 object-cover"
+                  />
+                )}
+                <div className="p-4 space-y-2">
+                  <h3 className="text-lg font-bold">{dest.name}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {dest.description}
+                  </p>
+                  <p className="text-blue-600 text-sm font-medium">
+                    {dest.country}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );
