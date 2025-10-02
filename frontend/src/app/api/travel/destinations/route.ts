@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { destinations } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export async function GET() {
     try {
@@ -10,9 +10,12 @@ export async function GET() {
             .from(destinations)
             .orderBy(desc(destinations.createdAt));
 
-        // Enrich with image URLs
         const enriched = await Promise.all(
             rows.map(async (dest) => {
+                // If already has image, return as is
+                if (dest.image) return dest;
+
+                // Otherwise fetch from Pexels
                 const res = await fetch(
                     `https://api.pexels.com/v1/search?query=${encodeURIComponent(dest.name)}`,
                     {
@@ -23,12 +26,23 @@ export async function GET() {
                 );
 
                 const data = await res.json();
+                const imageUrl = data.photos?.[0]?.src?.medium ?? null;
+
+                if (imageUrl) {
+                    // Update DB with new image URL
+                    await db
+                        .update(destinations)
+                        .set({ image: imageUrl })
+                        .where(eq(destinations.id, dest.id));
+                }
+
                 return {
                     ...dest,
-                    image: data.photos?.[0]?.src?.medium ?? null,
+                    image: imageUrl,
                 };
             })
         );
+
 
         return NextResponse.json(enriched);
     } catch (error) {
