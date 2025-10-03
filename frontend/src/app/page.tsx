@@ -2,19 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { destinations } from "@/db/schema";
-import { db } from '@/db'
+import DestinationSearch from "./components/DestinationSearch";
 
 export default function Home() {
-  const [query, setQuery] = useState("");
   const [destinationsstate, setDestinations] = useState<any[]>([]);
-  const router = useRouter();
-
-  const handleSubmit = () => {
-    if (query)
-      router.push(`/budget?location=${encodeURIComponent(query)}`);
-  }
 
   // Fetch destinations from the api
   useEffect(() => {
@@ -30,8 +21,6 @@ export default function Home() {
     fetchDestinations();
   }, []);
 
-
-
   return (
     <main className="max-w-6xl mx-auto p-6 space-y-10">
       {/* Search Section */}
@@ -39,30 +28,7 @@ export default function Home() {
         <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
           Find your next destination
         </h1>
-        <div className="w-full max-w-md flex items-center gap-2">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault(); // stop page refresh
-              handleSubmit();
-            }}
-            className="flex gap-2 w-full"
-          >
-            <input
-              type="text"
-              placeholder="Search destinations..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent p-2 text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-            />
-            <button
-              type="submit" // <-- important
-              className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
-            >
-              Search
-            </button>
-          </form>
-
-        </div>
+        <DestinationSearch />
       </section>
 
       {/* Popular Destinations */}
