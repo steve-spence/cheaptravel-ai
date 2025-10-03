@@ -20,7 +20,7 @@ export default function Footer() {
                     <Link href="/about">About</Link>
                     <Link href="/blog">Blog</Link>
                     <Link href="/contact">Contact</Link>
-                    <a href="https://github.com/msuaiagent/cheaptravel-ai" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/steve-spence/cheaptravel-ai" target="_blank" rel="noopener noreferrer">
                         <Image src="/github.svg" alt="Logo" width={25} height={25} />
                     </a>
                 </nav>
