@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { destinations } from "@/db/schema";
+import { db } from '@/db'
 
 export default function Home() {
   const [query, setQuery] = useState("");
-  const [destinations, setDestinations] = useState<any[]>([]);
+  const [destinationsstate, setDestinations] = useState<any[]>([]);
   const router = useRouter();
 
   const handleSubmit = () => {
@@ -67,13 +69,13 @@ export default function Home() {
       <section>
         <h2 className="text-xl font-semibold mb-4">Popular Destinations</h2>
 
-        {destinations.length === 0 ? (
+        {destinationsstate.length === 0 ? (
           <div className="text-gray-600 dark:text-gray-400 italic">
             No destinations available right now. Try searching instead.
           </div>
         ) : (
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {destinations.map((dest) => (
+            {destinationsstate.map((dest) => (
               <div
                 key={dest.id}
                 className="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition overflow-hidden"
